@@ -17,6 +17,9 @@ cursor.execute("SELECT 1")
 print("Database connection is successful")
 
 
+# class DirectorService:
+#     def read_directors(self):
+#         cursor.execute()
 class MovieService:
     def read_movies(self):
         cursor.execute("SELECT * FROM Movies")
