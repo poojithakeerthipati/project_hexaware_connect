@@ -80,9 +80,9 @@ class MainMenu:
                 self.director_service.read_directors()
             elif choice == 3:
                 Name = input("Please Enter the Name of the director: ")
-                ID = int(input("Please Enter the Director Id to update: "))
+                Director_ID = int(input("Please Enter the Director Id to update: "))
                 updated_director = Director(Name)
-                self.director_service.update_director(updated_director, ID)
+                self.director_service.update_director(updated_director, Director_ID)
             elif choice == 4:
                 director_id = int(input("Please tell a director id to delete: "))
                 self.director_service.delete_director(director_id)

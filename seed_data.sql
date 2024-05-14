@@ -1,3 +1,4 @@
+Use HexawareMovieDB;
 INSERT INTO Directors
     (Name)
 VALUES
@@ -99,4 +100,8 @@ FROM Movies
     ON Movies.DirectorId = Directors.DirectorId;
 
 
-insert into Directors (DirectorID,name) values(7,'Prashanth Neel');
+insert into Directors (name) values('Prashanth Neel');
+
+update Directors set Name = 'Prashanth Neil' where DirectorId = 9;
+
+delete from Directors where directorid = 7;

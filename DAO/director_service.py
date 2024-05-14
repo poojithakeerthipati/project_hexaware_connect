@@ -16,15 +16,13 @@ class DirectorService(DBConnection):
         self.cursor.execute("insert into Directors(Name) values(?)", (Director.Name))
         self.conn.commit()
 
-    def update_director(self, Director):
+    def update_director(self, Director, Director_ID):
         self.cursor.execute(
-            """" update directors 
-            set Name = ?
-            where ID = ?""",
-            (Director.Name, Director.ID),
+            "update Directors set Name = ? where DirectorId = ?",
+            (Director.Name, Director_ID),
         )
         self.conn.commit()
 
-    def delete_director(self, Diretor):
-        self.cursor.execute("delete from directors where ID=?", (Diretor.ID))
+    def delete_director(self, DiretorID):
+        self.cursor.execute("delete from directors where directorID=?", (DiretorID))
         self.conn.commit()
