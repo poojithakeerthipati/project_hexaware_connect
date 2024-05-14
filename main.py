@@ -1,9 +1,13 @@
 import pyodbc
 from tabulate import tabulate
-from Entity.movie import *
-from Entity.Director import *
-from DAO.movie_service import *
-from DAO.director_service import *
+
+# from Entity.movie import *
+# from Entity.Director import *
+from Entity import Director, Movie, Actor
+from DAO import ActorService, DirectorService, MovieService
+
+# from DAO.movie_service import *
+# from DAO.director_service import *
 
 # server_name = "SAMAR\\MSSQLSERVER01"
 # database_name = "MoviesDB"
