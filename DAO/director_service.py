@@ -12,5 +12,19 @@ class DirectorService(DBConnection):
         except Exception as e:
             print(e)
 
-    def create_director(self, director):
-        pass
+    def create_director(self, Director):
+        self.cursor.execute("insert into Directors(Name) values(?)", (Director.Name))
+        self.conn.commit()
+
+    def update_director(self, Director):
+        self.cursor.execute(
+            """" update directors 
+            set Name = ?
+            where ID = ?""",
+            (Director.Name, Director.ID),
+        )
+        self.conn.commit()
+
+    def delete_director(self, Diretor):
+        self.cursor.execute("delete from directors where ID=?", (Diretor.ID))
+        self.conn.commit()

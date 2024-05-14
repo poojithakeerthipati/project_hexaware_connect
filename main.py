@@ -1,6 +1,7 @@
 import pyodbc
 from tabulate import tabulate
 from Entity.movie import *
+from Entity.Director import *
 from DAO.movie_service import *
 from DAO.director_service import *
 
@@ -47,7 +48,7 @@ class MainMenu:
                 self.movie_service.create_movie(new_movie)
             elif choice == 2:
                 self.movie_service.read_movies()
-            if choice == 3:
+            elif choice == 3:
                 movie_id = int(input("Please enter movie's id: "))
                 title = input("Please enter movie title: ")
                 year = int(input("Please enter movie year: "))
@@ -64,13 +65,28 @@ class MainMenu:
         while True:
             print(
                 """
-            1.View All Directors
-            2.Back to main menu"""
+            1.Insert a new Director
+            2.View All Directors
+            3.update the Director
+            4.Delete the Director
+            5.Back to main menu"""
             )
             choice = int(input("Please choose from above options:"))
             if choice == 1:
-                self.director_service.read_directors()
+                Name = input("Please Enter the Name of the director: ")
+                new_director = Director(Name)
+                self.director_service.create_director(new_director)
             elif choice == 2:
+                self.director_service.read_directors()
+            elif choice == 3:
+                Name = input("Please Enter the Name of the director: ")
+                ID = int(input("Please Enter the Director Id to update: "))
+                updated_director = Director(Name)
+                self.director_service.update_director(updated_director, ID)
+            elif choice == 4:
+                director_id = int(input("Please tell a director id to delete: "))
+                self.director_service.delete_director(director_id)
+            elif choice == 5:
                 break
 
     def actor_menu():
