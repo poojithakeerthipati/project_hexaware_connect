@@ -2,6 +2,7 @@ import pyodbc
 from tabulate import tabulate
 from Entity.movie import *
 from DAO.movie_service import *
+from DAO.director_service import *
 
 # server_name = "SAMAR\\MSSQLSERVER01"
 # database_name = "MoviesDB"
@@ -22,6 +23,7 @@ from DAO.movie_service import *
 
 class MainMenu:
     movie_service = MovieService()
+    director_service = DirectorService()
 
     def movie_menu(self):
 
@@ -58,8 +60,18 @@ class MainMenu:
             elif choice == 5:
                 break
 
-    def director_menu():
-        pass
+    def director_menu(self):
+        while True:
+            print(
+                """
+            1.View All Directors
+            2.Back to main menu"""
+            )
+            choice = int(input("Please choose from above options:"))
+            if choice == 1:
+                self.director_service.read_directors()
+            elif choice == 2:
+                break
 
     def actor_menu():
         pass

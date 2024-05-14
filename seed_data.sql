@@ -97,3 +97,6 @@ FROM Movies
     ON Actors.ActorId= MovieActors.MovieId
     INNER JOIN Directors
     ON Movies.DirectorId = Directors.DirectorId;
+
+
+insert into Directors (DirectorID,name) values(7,'Prashanth Neel');
