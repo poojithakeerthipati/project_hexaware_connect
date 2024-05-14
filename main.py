@@ -117,6 +117,7 @@ if __name__ == "__main__":
             main_menu.actor_menu()
         elif choice == 4:
             main_menu.movie_service.close()
+            main_menu.director_service.close()
             break
 
     # cursor.close()
