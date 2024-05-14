@@ -93,8 +93,7 @@ class MainMenu:
         pass
 
 
-if __name__ == "__main__":
-    print("Welcome to the movies app")
+def main():
     main_menu = MainMenu()
 
     while True:
@@ -119,6 +118,11 @@ if __name__ == "__main__":
             main_menu.movie_service.close()
             main_menu.director_service.close()
             break
+
+
+if __name__ == "__main__":
+    print("Welcome to the movies app")
+    main()
 
     # cursor.close()
     # conn.close()
