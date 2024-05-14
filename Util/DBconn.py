@@ -1,22 +1,14 @@
 import pyodbc
+from Util.DBPropertyUtil import PropertyUtil
 
 
-server_name = "DESKTOP-BJQV7BU\SQLEXPRESS"
-database_name = "HexawareMovieDB"
-
-conn_str = (
-    f"Driver={{SQL Server}};"
-    f"Server={server_name};"
-    f"Database={database_name};"
-    f"Trusted_Connection=yes;"
-)
-
-print(conn_str)
+# print(conn_str)
 
 
 # When new object -> new connection
 class DBConnection:
     def __init__(self):
+        conn_str = PropertyUtil.get_property_string()
         self.conn = pyodbc.connect(conn_str)
         self.cursor = self.conn.cursor()
 
