@@ -1,167 +1,95 @@
 import pyodbc
+from tabulate import tabulate
+from Entity.movie import *
+from DAO.movie_service import *
 
-server_name = "DESKTOP-BJQV7BU\SQLEXPRESS"
-database_name = "HexawareMovieDB"
+# server_name = "SAMAR\\MSSQLSERVER01"
+# database_name = "MoviesDB"
 
+# conn_str = (
+#     f"Driver={{SQL Server}};"
+#     f"Server={server_name};"
+#     f"Database={database_name};"
+#     f"Trusted_Connection=yes;"
+# )
 
-conn_str = (
-    f"Driver={{SQL Server}};"
-    f"Server={server_name};"
-    f"Database={database_name};"
-    f"Trusted_Connection=yes;"
-)
 # print(conn_str)
-conn = pyodbc.connect(conn_str)
-cursor = conn.cursor()
-cursor.execute("SELECT 1")
-print("Database connection is successful")
+# conn = pyodbc.connect(conn_str)
+# cursor = conn.cursor()
+# cursor.execute("Select 1")
+# print("Database connection is successful 🎊")
 
 
-# class DirectorService:
-#     def read_directors(self):
-#         cursor.execute()
-class MovieService:
-    def read_movies(self):
-        cursor.execute("SELECT * FROM Movies")
-        # movies = cursor.fetchall()
-        # for movie in movies:
-        #     print(movie)
-
-        # getting 1 row at a time
-        for row in cursor:
-            print(row)
-
-    # def create_movie(n, y, d):
-    #     cursor.execute(
-    #         "INSERT INTO Movies (Title, Year, DirectorId) VALUES(?,?,?)",
-    #         (n, y, d),
-    #     )
-    #     conn.commit()  # permanently inserts the value
-
-    # def delete_movie():
-    #     cursor.execute(
-    #         "DELETE FROM Movies WHERE Title = ?",
-    #         ("Guru"),
-    #     )
-    #     conn.commit()
-
-    # Task 1: Get the data from the user [Clue: Use arguments]
-    def create_movie(self, movie, year, directorId):
-        cursor.execute(
-            "INSERT INTO Movies (Title, Year, DirectorId) VALUES (?, ?, ?)",
-            (movie, year, directorId),
-        )
-        conn.commit()  # Permanent storing | If no commit then no data
-
-    # Task 2
-    # Delete a movie from the db by getting the id from user
-    def delete_movie(self, movie_id):
-        cursor.execute("Delete from movies where MovieId=?", (movie_id))
-        conn.commit()
-
-    def update_movie(self, Movie_id, title, directorid, year):
-        cursor.execute(
-            "update Movies set title = ? ,year=?,directorid=? where MovieId=?",
-            (title, year, directorid, Movie_id),
-        )
-        conn.commit()
-
-
-# Task 3
-# Choice
-# Add a Movie
-# Delete a Movie
-def Movie_menu():
+class MainMenu:
     movie_service = MovieService()
-    while True:
-        print(
-            """
-            Do you want to
-            1. Create a Movie
-            2. Display the movies
-            3. Update the Movie
-            4. Delete the Movie
-            5. Exit
-            """
-        )
 
-        choice = int(input("Please choose from above options: "))
-        # print("1. Create a movie")
-        # print("2.update the movie")
-        # print("3. Delete a movie")
-        # print("4. Read movies")
-        # choice = input("Enter your choice: ")
+    def movie_menu(self):
 
-        if choice == 1:
-            name = input("Enter the movie name: ")
-            year = int(input("Enter the year: "))
-            director_id = int(input("Enter the director ID: "))
-            movie_service.create_movie(name, year, director_id)
-        elif choice == 2:
-            movie_service.read_movies()
-        elif choice == 3:
-            MovieId = int(input("Enter the MovieId: "))
-            title = input("Enter the movie name: ")
-            year = int(input("Enter the year: "))
-            director_id = int(input("Enter the director ID: "))
-            movie_service.update_movie(MovieId, title, director_id, year)
-        elif choice == 4:
-            title = input("Enter the Title that you need to update: ")
-            MovieId = int(input("Enter the MovieId: "))
-            movie_service.delete_movie(MovieId)
-        elif choice == 5:
-            print("You have exited successfully")
-            break
-        else:
-            print("Invalid choice. Please enter a valid option.")
+        while True:
+            print(
+                """      
+            1. Add a Movie
+            2. View all Movies
+            3. Update a Movie  
+            4. Delete a Movie
+            5. Back to main menu
+                    """
+            )
+            choice = int(input("Please choose from above options: "))
 
+            if choice == 1:
+                title = input("Please enter movie title: ")
+                year = int(input("Please enter movie year: "))
+                director_id = int(input("Please enter movie director's id: "))
+                new_movie = Movie(title, year, director_id)
+                self.movie_service.create_movie(new_movie)
+            elif choice == 2:
+                self.movie_service.read_movies()
+            if choice == 3:
+                movie_id = int(input("Please enter movie's id: "))
+                title = input("Please enter movie title: ")
+                year = int(input("Please enter movie year: "))
+                director_id = int(input("Please enter movie director's id: "))
+                updated_movie = Movie(title, year, director_id)
+                self.movie_service.update_movie(updated_movie, movie_id)
+            elif choice == 4:
+                movie_id = int(input("Please tell a movie id to delete: "))
+                self.movie_service.delete_movie(movie_id)
+            elif choice == 5:
+                break
 
-def director_menu():
-    pass
+    def director_menu():
+        pass
 
-
-def actors_menu():
-    pass
+    def actor_menu():
+        pass
 
 
 if __name__ == "__main__":
+    print("Welcome to the movies app")
+    main_menu = MainMenu()
+
     while True:
         print(
-            """
-            select one from below
-            1.Movie Management
-            2.Director Management
-            3.Actors Management
-            4.Exit to Main Menu"""
+            """      
+                1. Movie Management
+                2. Director Management
+                3. Actor Management
+                4. Exit
+                    """
         )
 
-        choice1 = int(input("Enter Your choice: "))
+        choice = int(input("Please choose from above options: "))
 
-        if choice1 == 1:
-            Movie_menu()
-        elif choice1 == 2:
-            director_menu()
-        elif choice1 == 3:
-            actors_menu()
-        elif choice1 == 4:
-            print("Back to Main menu")
+        if choice == 1:
+            main_menu.movie_menu()
+        elif choice == 2:
+            main_menu.director_menu()
+        elif choice == 3:
+            main_menu.actor_menu()
+        elif choice == 4:
+            main_menu.movie_service.close()
             break
-        else:
-            print("Invalid choice,Please enter a valid option")
-    cursor.close()
-    conn.close()
-    # movie = input("What's the Movie?🎥: ")
-    # year = int(input("When was it released?📆:"))
-    # directorId = int(input("Director's ID🪪: "))
-    # create_movie(movie, year, directorId)
-    # movie = input("Enter a Movie ID to delete🚮: ")
-    # delete_movie(movie)
-    # read_movies()
 
-# if __name__ == "__main__":
-#     name = input("enter a movie name:")
-#     year = int(input("enter the year"))
-#     directId = int(input("enter the director Id:"))
-#     create_movie(name, year, directId)
-#     delete_movie()
-#     read_movies()
+    # cursor.close()
+    # conn.close()
