@@ -1,8 +1,27 @@
 from tabulate import *
 from Util.DBconn import DBConnection
+from abc import ABC, abstractmethod
 
 
-class DirectorService(DBConnection):
+class IDirectorService(ABC):
+    @abstractmethod
+    def read_directors(self):
+        pass
+
+    @abstractmethod
+    def create_director(self, director):
+        pass
+
+    @abstractmethod
+    def update_director(self, director, Director_ID):
+        pass
+
+    @abstractmethod
+    def delete_director(self, DirectorID):
+        pass
+
+
+class DirectorService(IDirectorService, DBConnection):
     def read_directors(self):
         try:
             self.cursor.execute("SELECT * FROM Directors")
