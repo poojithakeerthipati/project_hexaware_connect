@@ -1,6 +1,7 @@
 from tabulate import *
 from Util.DBconn import DBConnection
 from abc import ABC, abstractmethod
+from MyExceptions.director_exception import DirectorNotFoundError
 
 
 class IDirectorService(ABC):
@@ -18,6 +19,10 @@ class IDirectorService(ABC):
 
     @abstractmethod
     def delete_director(self, DirectorID):
+        pass
+
+    @abstractmethod
+    def read_director_by_id(self, DirectorID):
         pass
 
 
@@ -45,3 +50,16 @@ class DirectorService(IDirectorService, DBConnection):
     def delete_director(self, DiretorID):
         self.cursor.execute("delete from directors where directorID=?", (DiretorID))
         self.conn.commit()
+
+    def read_director_by_id(self, Director_ID):
+        try:
+            self.cursor.execute(
+                "SELECT * FROM Directors where DirectorId=?", (Director_ID)
+            )
+            directors = self.cursor.fetchall()
+            if len(directors) == 0:
+                raise DirectorNotFoundError(Director_ID)
+            else:
+                print(directors)
+        except Exception as e:
+            print("OOPs Error happend: ", e)

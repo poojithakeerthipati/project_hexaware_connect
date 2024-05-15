@@ -73,7 +73,8 @@ class MainMenu:
             2.View All Directors
             3.update the Director
             4.Delete the Director
-            5.Back to main menu"""
+            5.View Director By id
+            6.Back to main menu"""
             )
             choice = int(input("Please choose from above options:"))
             if choice == 1:
@@ -91,6 +92,9 @@ class MainMenu:
                 director_id = int(input("Please tell a director id to delete: "))
                 self.director_service.delete_director(director_id)
             elif choice == 5:
+                director_id = int(input("Please tell a director id to delete: "))
+                self.director_service.read_director_by_id(director_id)
+            elif choice == 6:
                 break
 
     def actor_menu():
